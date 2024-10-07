@@ -44,5 +44,15 @@ module GreenhouseIo
     def delete_application(id = nil)
       delete_from_harvest_api("/applications#{path_id(id)}", {})
     end
+
+    # reject application
+    # POST https://harvest.greenhouse.io/v1/applications/{id}/reject
+    def reject_application(id = nil, application_hash = {}, on_behalf_of)
+      post_to_harvest_api(
+        "/applications#{path_id(id)}/reject",
+        application_hash,
+        { 'On-Behalf-Of' => on_behalf_of.to_s }
+      )
+    end
   end
 end
